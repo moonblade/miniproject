@@ -10,7 +10,7 @@ package bloodbank;
  * @author moonblade
  */
 import bloodbank.models.Donor;
-import bloodbank.funtions.GetDonors;
+import bloodbank.funtions.GetData;
 import bloodbank.views.MainScreen;
 import java.awt.Dimension;
 import java.sql.*;
@@ -43,7 +43,7 @@ public class BloodBank {
         f.add(mainPanel);
         f.setSize(500, 500);
         f.setVisible(true);
-        GetDonors getDonors = new GetDonors();
+        GetData getDonors = new GetData();
         try
         {
             ArrayList<Donor> donorList = getDonors.getDonor(bloodGroup);

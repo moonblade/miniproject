@@ -6,11 +6,12 @@
 package bloodbank.views;
 
 import bloodbank.GlobalConstants;
-import bloodbank.funtions.GetDonors;
+import bloodbank.funtions.GetData;
 import bloodbank.models.Donor;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,14 +38,71 @@ public class MainScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        loginScreenPanel = new javax.swing.JPanel();
+        emailField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
+        loginButton = new javax.swing.JButton();
+        signUpLabel = new javax.swing.JLabel();
+        mainScreenPanel = new javax.swing.JPanel();
         bloodGroupDropDown = new javax.swing.JComboBox();
         searchButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollTable = new javax.swing.JScrollPane();
         donorListTable = new javax.swing.JTable();
+        menu = new javax.swing.JMenuBar();
+        options = new javax.swing.JMenu();
+        loginMenuItem = new javax.swing.JMenuItem();
+        exitMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        emailField.setToolTipText("Email");
+
+        passwordField.setToolTipText("Password");
+
+        loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
+
+        signUpLabel.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        signUpLabel.setForeground(new java.awt.Color(2, 9, 131));
+        signUpLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        signUpLabel.setText("Sign Up");
+
+        javax.swing.GroupLayout loginScreenPanelLayout = new javax.swing.GroupLayout(loginScreenPanel);
+        loginScreenPanel.setLayout(loginScreenPanelLayout);
+        loginScreenPanelLayout.setHorizontalGroup(
+            loginScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginScreenPanelLayout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addGroup(loginScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(emailField)
+                    .addComponent(passwordField)
+                    .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(signUpLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
+        );
+        loginScreenPanelLayout.setVerticalGroup(
+            loginScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginScreenPanelLayout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(signUpLabel)
+                .addContainerGap(282, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(loginScreenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 550));
+
+        mainScreenPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         bloodGroupDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A+ve", "A-ve", "B+ve", "B-ve", "O+ve", "O-ve", "AB+ve", "AB-ve" }));
         bloodGroupDropDown.addActionListener(new java.awt.event.ActionListener() {
@@ -60,48 +118,60 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(bloodGroupDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchButton)
-                .addContainerGap(104, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bloodGroupDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.setLayout(new java.awt.GridLayout());
-
+        donorListTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         donorListTable.setAutoscrolls(false);
-        jScrollPane1.setViewportView(donorListTable);
+        scrollTable.setViewportView(donorListTable);
 
-        jPanel2.add(jScrollPane1);
+        javax.swing.GroupLayout mainScreenPanelLayout = new javax.swing.GroupLayout(mainScreenPanel);
+        mainScreenPanel.setLayout(mainScreenPanelLayout);
+        mainScreenPanelLayout.setHorizontalGroup(
+            mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+            .addGroup(mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainScreenPanelLayout.createSequentialGroup()
+                    .addGap(103, 103, 103)
+                    .addComponent(bloodGroupDropDown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(104, 104, 104)))
+        );
+        mainScreenPanelLayout.setVerticalGroup(
+            mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainScreenPanelLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+            .addGroup(mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mainScreenPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bloodGroupDropDown))
+                    .addGap(505, 505, 505)))
+        );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(mainScreenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, 390, 550));
+
+        options.setText("Options");
+
+        loginMenuItem.setText("Login");
+        loginMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginMenuItemActionPerformed(evt);
+            }
+        });
+        options.add(loginMenuItem);
+
+        exitMenuItem.setText("Exit");
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
+        options.add(exitMenuItem);
+
+        menu.add(options);
+
+        setJMenuBar(menu);
 
         setBounds(0, 0, 400, 600);
     }// </editor-fold>//GEN-END:initComponents
@@ -114,11 +184,10 @@ public class MainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         String selected = bloodGroupDropDown.getSelectedItem().toString();
         System.out.println("Searching for " + selected);
-        GetDonors getDonors = new GetDonors();
+        GetData getDonors = new GetData();
         try {
             ArrayList<Donor> donorList = getDonors.getDonor(selected);
             tableModel.setRowCount(0);
-            System.out.println("" + donorList.size());
             for (int i = 0; i < donorList.size(); ++i) {
                 Donor temp = donorList.get(i);
                 Object obj[] = {temp.id, temp.name, temp.email, temp.bloodgroup, temp.mobile};
@@ -132,6 +201,36 @@ public class MainScreen extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void loginMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginMenuItemActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Going to login Screen");
+        showLoginScreen();
+    }//GEN-LAST:event_loginMenuItemActionPerformed
+
+    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Exiting");
+        this.dispose();
+    }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        // TODO add your handling code here:
+        GetData getData = new GetData();
+        try {
+            String email = emailField.getText().toString();
+            String password = passwordField.getText().toString();
+            boolean loggedIn;
+            if(email.equals("") || password.equals(""))
+                JOptionPane.showMessageDialog(this, "Please fill the details");
+                    
+            else
+                loggedIn = getData.login(email,password);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,13 +270,40 @@ public class MainScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox bloodGroupDropDown;
     private javax.swing.JTable donorListTable;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JMenuItem loginMenuItem;
+    private javax.swing.JPanel loginScreenPanel;
+    private javax.swing.JPanel mainScreenPanel;
+    private javax.swing.JMenuBar menu;
+    private javax.swing.JMenu options;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JScrollPane scrollTable;
     private javax.swing.JButton searchButton;
+    private javax.swing.JLabel signUpLabel;
     // End of variables declaration//GEN-END:variables
 
     private void changeComponents() {
         donorListTable.setModel(tableModel);
+        showMainScreen();
+    }
+
+    private void showMainScreen() {
+        hideAll();
+        mainScreenPanel.setVisible(true);
+        setTitle("Search Donors");    
+    }
+    
+    private void showLoginScreen() {
+        hideAll();
+        loginScreenPanel.setVisible(true);
+        setTitle("Login");
+    }
+
+    private void hideAll() {
+        loginScreenPanel.setVisible(false);
+        mainScreenPanel.setVisible(false);
+        repaint();
     }
 }

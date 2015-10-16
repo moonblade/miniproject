@@ -19,10 +19,46 @@ import java.util.*;
  *
  * @author moonblade
  */
-public class GetDonors {
+public class GetData {
 
     ArrayList<Donor> donorList = new ArrayList<Donor>();
     Connection conn = null;
+
+    public boolean login(String username, String password) throws ClassNotFoundException {
+        String loginQuery = "select count(*) as count from donor where email = '" + username + "' and password = '" + password + "';";
+        System.out.println(loginQuery);
+        try {
+            Class.forName(GlobalConstants.registerDriver);
+            conn = DriverManager.getConnection(GlobalConstants.connection);
+            if (GlobalConstants.MODE == 1) {
+                conn.setCatalog("test");
+            }
+            Statement statement = conn.createStatement();
+
+            ResultSet r = statement.executeQuery(loginQuery);
+            ResultSetMetaData m = r.getMetaData();
+            int noOfColumns=0;
+            while(r.next())
+            {
+                noOfColumns=Integer.parseInt(r.getString("count"));
+            }
+            if (noOfColumns > 0) {
+                System.out.println("Login Successful");
+                return true;
+            } else {
+                System.out.println("Login Unsuccessful");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("SqlError while retrieving");
+        } catch (NullPointerException n) {
+            System.out.println("Null Pointer Error while retrieving");
+        }
+			// statement.executeUpdate("create table test(id int primary key);");
+
+        // statement.executeUpdate("create table donor(id int primary key, name varchar2(30), email ")
+        return false;
+    }
 
     public ArrayList<Donor> getDonor(String bg) throws ClassNotFoundException {
         String sqlQuery = "select * from donor where bloodgroup like '%" + bg + "%';";
@@ -42,7 +78,7 @@ public class GetDonors {
 //                    System.out.println(r.getObject(1).toString());
 //                    Donor d = new Donor(r);
 //                    d.print();
-                      donorList.add(new Donor(r));
+                    donorList.add(new Donor(r));
                 }
             } catch (SQLException e) {
                 System.out.println("SqlError while retrieving");
