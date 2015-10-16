@@ -10,8 +10,8 @@ package bloodbank;
  * @author moonblade
  */
 import bloodbank.models.Donor;
-import bloodbank.funtions.GetData;
-import bloodbank.views.MainScreen;
+import bloodbank.funtions.DataBase;
+import bloodbank.views.GUIFrames;
 import java.awt.Dimension;
 import java.sql.*;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class BloodBank {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        MainScreen mainScreen = new MainScreen();
+        GUIFrames mainScreen = new GUIFrames();
         mainScreen.setVisible(true);
     }
 
@@ -43,7 +43,7 @@ public class BloodBank {
         f.add(mainPanel);
         f.setSize(500, 500);
         f.setVisible(true);
-        GetData getDonors = new GetData();
+        DataBase getDonors = new DataBase();
         try
         {
             ArrayList<Donor> donorList = getDonors.getDonor(bloodGroup);

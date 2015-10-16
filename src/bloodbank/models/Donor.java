@@ -17,7 +17,7 @@ public class Donor {
 
     public int id;
     public String name, email, bloodgroup, mobile;
-    String password;
+    public String password;
 
     public Donor(int id, String name, String email, String password, String bloodgroup, String mobile) {
         this.id = id;

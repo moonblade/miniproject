@@ -19,7 +19,7 @@ import java.util.*;
  *
  * @author moonblade
  */
-public class GetData {
+public class DataBase {
 
     ArrayList<Donor> donorList = new ArrayList<Donor>();
     Connection conn = null;
@@ -37,10 +37,9 @@ public class GetData {
 
             ResultSet r = statement.executeQuery(loginQuery);
             ResultSetMetaData m = r.getMetaData();
-            int noOfColumns=0;
-            while(r.next())
-            {
-                noOfColumns=Integer.parseInt(r.getString("count"));
+            int noOfColumns = 0;
+            while (r.next()) {
+                noOfColumns = Integer.parseInt(r.getString("count"));
             }
             if (noOfColumns > 0) {
                 System.out.println("Login Successful");
@@ -65,9 +64,6 @@ public class GetData {
         try {
             Class.forName(GlobalConstants.registerDriver);
             conn = DriverManager.getConnection(GlobalConstants.connection);
-            if (GlobalConstants.MODE == 1) {
-                conn.setCatalog("test");
-            }
             Statement statement = conn.createStatement();
 
             ResultSet r = statement.executeQuery(sqlQuery);
@@ -92,5 +88,29 @@ public class GetData {
             System.out.println("Exception SQL");
         }
         return donorList;
+    }
+
+    public boolean addDonor(Donor donor) throws ClassNotFoundException {
+        String sqlQuery = "insert into donor(name,email,password,bloodgroup,mobile) values('" + donor.name + "','" + donor.email + "','" + donor.password + "','" + donor.bloodgroup + "','" + donor.mobile + "')";
+        try {
+            Class.forName(GlobalConstants.registerDriver);
+            conn = DriverManager.getConnection(GlobalConstants.connection);
+            Statement statement = conn.createStatement();
+
+            int m = statement.executeUpdate(sqlQuery);
+            if (m > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("SqlError while retrieving");
+        } catch (NullPointerException n) {
+            System.out.println("Null Pointer Error while retrieving");
+        }
+			// statement.executeUpdate("create table test(id int primary key);");
+
+        // statement.executeUpdate("create table donor(id int primary key, name varchar2(30), email ")
+        return false;
     }
 }
