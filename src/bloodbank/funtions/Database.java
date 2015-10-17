@@ -5,7 +5,7 @@
  */
 package bloodbank.funtions;
 
-import bloodbank.GlobalConstants;
+import bloodbank.GlobalVariables;
 import bloodbank.models.Donor;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,33 +19,34 @@ import java.util.*;
  *
  * @author moonblade
  */
-public class DataBase {
+public class Database {
 
     ArrayList<Donor> donorList = new ArrayList<Donor>();
     Connection conn = null;
 
     public boolean login(String username, String password) throws ClassNotFoundException {
-        String loginQuery = "select count(*) as count from donor where email = '" + username + "' and password = '" + password + "';";
-        System.out.println(loginQuery);
+        String loginQuery = "select * from donor where email = '" + username + "' and password = '" + password + "';";
         try {
-            Class.forName(GlobalConstants.registerDriver);
-            conn = DriverManager.getConnection(GlobalConstants.connection);
-            if (GlobalConstants.MODE == 1) {
+            Class.forName(GlobalVariables.registerDriver);
+            conn = DriverManager.getConnection(GlobalVariables.connection);
+            if (GlobalVariables.MODE == 1) {
                 conn.setCatalog("test");
             }
             Statement statement = conn.createStatement();
 
             ResultSet r = statement.executeQuery(loginQuery);
             ResultSetMetaData m = r.getMetaData();
-            int noOfColumns = 0;
+            int id = 0;
             while (r.next()) {
-                noOfColumns = Integer.parseInt(r.getString("count"));
+                id = Integer.parseInt(r.getString("id"));
+                GlobalVariables.me = new Donor(r);
             }
-            if (noOfColumns > 0) {
+            if (id > 0) {
                 System.out.println("Login Successful");
                 return true;
             } else {
                 System.out.println("Login Unsuccessful");
+                GlobalVariables.me = new Donor();
                 return false;
             }
         } catch (SQLException e) {
@@ -53,17 +54,14 @@ public class DataBase {
         } catch (NullPointerException n) {
             System.out.println("Null Pointer Error while retrieving");
         }
-			// statement.executeUpdate("create table test(id int primary key);");
-
-        // statement.executeUpdate("create table donor(id int primary key, name varchar2(30), email ")
         return false;
     }
 
     public ArrayList<Donor> getDonor(String bg) throws ClassNotFoundException {
         String sqlQuery = "select * from donor where bloodgroup like '%" + bg + "%';";
         try {
-            Class.forName(GlobalConstants.registerDriver);
-            conn = DriverManager.getConnection(GlobalConstants.connection);
+            Class.forName(GlobalVariables.registerDriver);
+            conn = DriverManager.getConnection(GlobalVariables.connection);
             Statement statement = conn.createStatement();
 
             ResultSet r = statement.executeQuery(sqlQuery);
@@ -71,9 +69,6 @@ public class DataBase {
             int noOfColumns = m.getColumnCount();
             try {
                 while (r.next()) {
-//                    System.out.println(r.getObject(1).toString());
-//                    Donor d = new Donor(r);
-//                    d.print();
                     donorList.add(new Donor(r));
                 }
             } catch (SQLException e) {
@@ -81,10 +76,7 @@ public class DataBase {
             } catch (NullPointerException n) {
                 System.out.println("Null Pointer Error while retrieving");
             }
-			// statement.executeUpdate("create table test(id int primary key);");
-
-            // statement.executeUpdate("create table donor(id int primary key, name varchar2(30), email ")
-        } catch (SQLException e) {
+	} catch (SQLException e) {
             System.out.println("Exception SQL");
         }
         return donorList;
@@ -93,8 +85,8 @@ public class DataBase {
     public boolean addDonor(Donor donor) throws ClassNotFoundException {
         String sqlQuery = "insert into donor(name,email,password,bloodgroup,mobile) values('" + donor.name + "','" + donor.email + "','" + donor.password + "','" + donor.bloodgroup + "','" + donor.mobile + "')";
         try {
-            Class.forName(GlobalConstants.registerDriver);
-            conn = DriverManager.getConnection(GlobalConstants.connection);
+            Class.forName(GlobalVariables.registerDriver);
+            conn = DriverManager.getConnection(GlobalVariables.connection);
             Statement statement = conn.createStatement();
 
             int m = statement.executeUpdate(sqlQuery);
@@ -108,9 +100,27 @@ public class DataBase {
         } catch (NullPointerException n) {
             System.out.println("Null Pointer Error while retrieving");
         }
-			// statement.executeUpdate("create table test(id int primary key);");
+	return false;
+    }
 
-        // statement.executeUpdate("create table donor(id int primary key, name varchar2(30), email ")
-        return false;
+    public boolean editDonor(Donor donor) throws ClassNotFoundException {
+        String sqlQuery = "update donor set name='"+donor.name + "', email = '" + donor.email + "', password='" + donor.password + "',bloodgroup='" + donor.bloodgroup + "',mobile='" + donor.mobile + "' where id="+donor.id;
+        try {
+            Class.forName(GlobalVariables.registerDriver);
+            conn = DriverManager.getConnection(GlobalVariables.connection);
+            Statement statement = conn.createStatement();
+
+            int m = statement.executeUpdate(sqlQuery);
+            if (m > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("SqlError while retrieving");
+        } catch (NullPointerException n) {
+            System.out.println("Null Pointer Error while retrieving");
+        }
+	return false;
     }
 }

@@ -7,7 +7,6 @@ package bloodbank.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 
 /**
  *
@@ -19,6 +18,11 @@ public class Donor {
     public String name, email, bloodgroup, mobile;
     public String password;
 
+    public Donor()
+    {
+        this.id = 0;
+    }
+    
     public Donor(int id, String name, String email, String password, String bloodgroup, String mobile) {
         this.id = id;
         this.name = name;

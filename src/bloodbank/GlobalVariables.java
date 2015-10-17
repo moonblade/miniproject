@@ -5,15 +5,19 @@
  */
 package bloodbank;
 
+import bloodbank.models.Donor;
+
 /**
  *
  * @author moonblade
  */
-public class GlobalConstants {
+public class GlobalVariables {
     public static int MODE = 1;
     public static String connection="jdbc:mysql://localhost:3306/test?user=root&password=root";
 //    public static String connection="jdbc:mysql://localhost:3306/test?user=root&password=root";
     public static String registerDriver="com.mysql.jdbc.Driver";
 //    public static String registerDriver="com.mysql.jdbc.Driver";
-    public static String col[] = {"Name","email","bloodgroup","mobile"};    
+    public static String col[] = {"Name","email","bloodgroup","mobile"};   
+    
+    public static Donor me = new Donor();
 }

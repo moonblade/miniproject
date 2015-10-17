@@ -5,8 +5,8 @@
  */
 package bloodbank.views;
 
-import bloodbank.GlobalConstants;
-import bloodbank.funtions.DataBase;
+import bloodbank.GlobalVariables;
+import bloodbank.funtions.Database;
 import bloodbank.models.Donor;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class GUIFrames extends javax.swing.JFrame {
 
     boolean loggedIn = false;
-    DefaultTableModel tableModel = new DefaultTableModel(GlobalConstants.col, 0);
+    DefaultTableModel tableModel = new DefaultTableModel(GlobalVariables.col, 0);
 
     /**
      * Creates new form MainScreen
@@ -30,6 +30,11 @@ public class GUIFrames extends javax.swing.JFrame {
     public GUIFrames() {
         initComponents();
         changeComponents();
+        setVisible(true);
+    }
+
+    public static void main() {
+        GUIFrames start = new GUIFrames();
     }
 
     /**
@@ -41,6 +46,32 @@ public class GUIFrames extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        changePasswordDialog = new javax.swing.JDialog();
+        currentPasswordLabel = new javax.swing.JLabel();
+        currentPasswordField = new javax.swing.JPasswordField();
+        newPasswordLabel = new javax.swing.JLabel();
+        newPasswordField = new javax.swing.JPasswordField();
+        confNewPasswordLabel = new javax.swing.JLabel();
+        submitChangeButton = new javax.swing.JButton();
+        confNewPasswordField = new javax.swing.JPasswordField();
+        cancelChangeButton = new javax.swing.JButton();
+        searchScreenPanel = new javax.swing.JPanel();
+        bloodGroupDropDown = new javax.swing.JComboBox();
+        searchButton = new javax.swing.JButton();
+        scrollTable = new javax.swing.JScrollPane();
+        donorListTable = new javax.swing.JTable();
+        profilePanel = new javax.swing.JPanel();
+        nameProfLabel = new javax.swing.JLabel();
+        nameProfField = new javax.swing.JTextField();
+        emailProfField = new javax.swing.JTextField();
+        emailProfLabel = new javax.swing.JLabel();
+        bloodGroupProfLabel = new javax.swing.JLabel();
+        bloodGroupProfDropDown = new javax.swing.JComboBox();
+        mobileProfField = new javax.swing.JTextField();
+        mobileProfLabel = new javax.swing.JLabel();
+        resetProfButton = new javax.swing.JButton();
+        editProfButton = new javax.swing.JButton();
+        changePasswordButton = new javax.swing.JButton();
         registerPanel = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
@@ -56,11 +87,6 @@ public class GUIFrames extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         passwordRegField = new javax.swing.JPasswordField();
         confPasswordField = new javax.swing.JPasswordField();
-        mainScreenPanel = new javax.swing.JPanel();
-        bloodGroupDropDown = new javax.swing.JComboBox();
-        searchButton = new javax.swing.JButton();
-        scrollTable = new javax.swing.JScrollPane();
-        donorListTable = new javax.swing.JTable();
         loginScreenPanel = new javax.swing.JPanel();
         emailField = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
@@ -74,9 +100,229 @@ public class GUIFrames extends javax.swing.JFrame {
         loginMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
 
+        changePasswordDialog.pack();
+        changePasswordDialog.setSize(400,400);
+
+        currentPasswordLabel.setText("Current Password");
+
+        newPasswordLabel.setText("New Password");
+
+        confNewPasswordLabel.setText("Confirm New Password");
+
+        submitChangeButton.setText("Submit");
+        submitChangeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitChangeButtonActionPerformed(evt);
+            }
+        });
+
+        cancelChangeButton.setText("Cancel");
+        cancelChangeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelChangeButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout changePasswordDialogLayout = new javax.swing.GroupLayout(changePasswordDialog.getContentPane());
+        changePasswordDialog.getContentPane().setLayout(changePasswordDialogLayout);
+        changePasswordDialogLayout.setHorizontalGroup(
+            changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePasswordDialogLayout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, changePasswordDialogLayout.createSequentialGroup()
+                        .addComponent(cancelChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(submitChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(changePasswordDialogLayout.createSequentialGroup()
+                        .addGroup(changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(confNewPasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                            .addComponent(currentPasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(newPasswordLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(41, 41, 41)
+                        .addGroup(changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(currentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(newPasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(confNewPasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(33, 33, 33))
+        );
+        changePasswordDialogLayout.setVerticalGroup(
+            changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(changePasswordDialogLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(currentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(currentPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newPasswordField))
+                .addGap(18, 18, 18)
+                .addGroup(changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confNewPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confNewPasswordField))
+                .addGap(41, 41, 41)
+                .addGroup(changePasswordDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(submitChangeButton)
+                    .addComponent(cancelChangeButton))
+                .addGap(38, 38, 38))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchScreenPanel.setAlignmentX(0.0F);
+        searchScreenPanel.setAlignmentY(0.0F);
+        searchScreenPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        searchScreenPanel.setPreferredSize(new java.awt.Dimension(400, 500));
+
+        bloodGroupDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A+ve", "A-ve", "B+ve", "B-ve", "O+ve", "O-ve", "AB+ve", "AB-ve" }));
+        bloodGroupDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bloodGroupDropDownActionPerformed(evt);
+            }
+        });
+
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        scrollTable.setAlignmentX(0.0F);
+        scrollTable.setAlignmentY(0.0F);
+
+        donorListTable.setAutoCreateRowSorter(true);
+        donorListTable.setAlignmentX(0.0F);
+        donorListTable.setAlignmentY(0.0F);
+        donorListTable.setAutoscrolls(false);
+        donorListTable.setFillsViewportHeight(true);
+        scrollTable.setViewportView(donorListTable);
+
+        javax.swing.GroupLayout searchScreenPanelLayout = new javax.swing.GroupLayout(searchScreenPanel);
+        searchScreenPanel.setLayout(searchScreenPanelLayout);
+        searchScreenPanelLayout.setHorizontalGroup(
+            searchScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(searchScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchScreenPanelLayout.createSequentialGroup()
+                    .addGap(103, 103, 103)
+                    .addComponent(bloodGroupDropDown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(104, 104, 104)))
+        );
+        searchScreenPanelLayout.setVerticalGroup(
+            searchScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchScreenPanelLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(scrollTable))
+            .addGroup(searchScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(searchScreenPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(searchScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bloodGroupDropDown))
+                    .addGap(505, 505, 505)))
+        );
+
+        getContentPane().add(searchScreenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, -1, -1));
+        searchScreenPanel.getAccessibleContext().setAccessibleName("");
+
+        nameProfLabel.setText("Name");
+
+        nameProfField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameProfFieldActionPerformed(evt);
+            }
+        });
+
+        emailProfLabel.setText("Email");
+
+        bloodGroupProfLabel.setText("BloodGroup");
+
+        bloodGroupProfDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A+ve", "A-ve", "B+ve", "B-ve", "O+ve", "O-ve", "AB+ve", "AB-ve" }));
+        bloodGroupProfDropDown.setToolTipText("");
+
+        mobileProfLabel.setText("Mobile");
+
+        resetProfButton.setText("Reset");
+        resetProfButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetProfButtonActionPerformed(evt);
+            }
+        });
+
+        editProfButton.setText("Edit");
+        editProfButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editProfButtonActionPerformed(evt);
+            }
+        });
+
+        changePasswordButton.setText("Change Password");
+        changePasswordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changePasswordButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout profilePanelLayout = new javax.swing.GroupLayout(profilePanel);
+        profilePanel.setLayout(profilePanelLayout);
+        profilePanelLayout.setHorizontalGroup(
+            profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(resetProfButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nameProfLabel)
+                    .addComponent(emailProfLabel)
+                    .addComponent(bloodGroupProfLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mobileProfLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(profilePanelLayout.createSequentialGroup()
+                        .addComponent(changePasswordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(editProfButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameProfField, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(emailProfField, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(bloodGroupProfDropDown, javax.swing.GroupLayout.Alignment.TRAILING, 0, 241, Short.MAX_VALUE)
+                    .addComponent(mobileProfField, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(29, 29, 29))
+        );
+        profilePanelLayout.setVerticalGroup(
+            profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameProfLabel)
+                    .addComponent(nameProfField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailProfLabel)
+                    .addComponent(emailProfField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bloodGroupProfDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bloodGroupProfLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(mobileProfField)
+                    .addComponent(mobileProfLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editProfButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(resetProfButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(changePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(280, 280, 280))
+        );
+
+        getContentPane().add(profilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 550));
 
         nameLabel.setText("Name");
 
@@ -138,7 +384,7 @@ public class GUIFrames extends javax.swing.JFrame {
                             .addComponent(emailRegField, javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(passwordRegField, javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(confPasswordField, javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(bloodGroupComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bloodGroupComboBox, javax.swing.GroupLayout.Alignment.CENTER, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(mobileField, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(27, 27, 27))
         );
@@ -159,73 +405,24 @@ public class GUIFrames extends javax.swing.JFrame {
                     .addComponent(passwordRegField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(confPasswordField)
-                    .addComponent(confPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(confPasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(confPasswordField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bloodGroupComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bloodgroupLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(mobileField)
-                    .addComponent(mobileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(mobileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mobileField))
                 .addGap(18, 18, 18)
                 .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(submitButton))
+                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(193, 193, 193))
         );
 
         getContentPane().add(registerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 550));
-
-        mainScreenPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        bloodGroupDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A+ve", "A-ve", "B+ve", "B-ve", "O+ve", "O-ve", "AB+ve", "AB-ve" }));
-        bloodGroupDropDown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bloodGroupDropDownActionPerformed(evt);
-            }
-        });
-
-        searchButton.setText("Search");
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
-            }
-        });
-
-        donorListTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        donorListTable.setAutoscrolls(false);
-        scrollTable.setViewportView(donorListTable);
-
-        javax.swing.GroupLayout mainScreenPanelLayout = new javax.swing.GroupLayout(mainScreenPanel);
-        mainScreenPanel.setLayout(mainScreenPanelLayout);
-        mainScreenPanelLayout.setHorizontalGroup(
-            mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-            .addGroup(mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainScreenPanelLayout.createSequentialGroup()
-                    .addGap(103, 103, 103)
-                    .addComponent(bloodGroupDropDown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(104, 104, 104)))
-        );
-        mainScreenPanelLayout.setVerticalGroup(
-            mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainScreenPanelLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
-            .addGroup(mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainScreenPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(mainScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bloodGroupDropDown))
-                    .addGap(505, 505, 505)))
-        );
-
-        getContentPane().add(mainScreenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, 390, 550));
 
         emailField.setToolTipText("Email");
 
@@ -270,7 +467,7 @@ public class GUIFrames extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(signUpButton)
+                .addComponent(signUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(274, Short.MAX_VALUE))
         );
 
@@ -278,6 +475,7 @@ public class GUIFrames extends javax.swing.JFrame {
 
         options.setText("Options");
 
+        searchMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         searchMenuItem.setText("Search");
         searchMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,6 +484,7 @@ public class GUIFrames extends javax.swing.JFrame {
         });
         options.add(searchMenuItem);
 
+        registerMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         registerMenuItem.setText("Register Donor");
         registerMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -294,6 +493,7 @@ public class GUIFrames extends javax.swing.JFrame {
         });
         options.add(registerMenuItem);
 
+        profileMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         profileMenuItem.setText("Profile");
         profileMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,10 +502,12 @@ public class GUIFrames extends javax.swing.JFrame {
         });
         options.add(profileMenuItem);
 
-        if(!loggedIn)
-        loginMenuItem.setText("Login");
-        else
-        loginMenuItem.setText("Logout");
+        loginMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        if(!loggedIn){
+            loginMenuItem.setText("Login");
+        }else{
+            loginMenuItem.setText("Logout");
+        }
         loginMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginMenuItemActionPerformed(evt);
@@ -313,6 +515,7 @@ public class GUIFrames extends javax.swing.JFrame {
         });
         options.add(loginMenuItem);
 
+        exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,7 +539,7 @@ public class GUIFrames extends javax.swing.JFrame {
         // TODO add your handling code here:
         String selected = bloodGroupDropDown.getSelectedItem().toString();
         System.out.println("Searching for " + selected);
-        DataBase getDonors = new DataBase();
+        Database getDonors = new Database();
         try {
             ArrayList<Donor> donorList = getDonors.getDonor(selected);
             tableModel.setRowCount(0);
@@ -359,9 +562,11 @@ public class GUIFrames extends javax.swing.JFrame {
         System.out.println("Going to login Screen");
         if (loggedIn) {
             loggedIn = false;
-            JOptionPane.showMessageDialog(this, "Successfully Logged Out");
             loginMenuItem.setText("Login");
+            GlobalVariables.me = new Donor();
+            showSearchScreen();
             profileMenuItem.setVisible(loggedIn);
+            JOptionPane.showMessageDialog(this, "Successfully Logged Out");
             repaint();
         } else {
             showLoginScreen();
@@ -376,7 +581,7 @@ public class GUIFrames extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        DataBase getData = new DataBase();
+        Database getData = new Database();
         try {
             String email = emailField.getText().toString();
             String password = passwordField.getText().toString();
@@ -385,7 +590,7 @@ public class GUIFrames extends javax.swing.JFrame {
             } else {
                 loggedIn = getData.login(email, password);
                 if (loggedIn) {
-                    showMainScreen();
+                    showSearchScreen();
                     loginMenuItem.setText("Logout");
                 } else {
                     JOptionPane.showMessageDialog(this, "The Email or Password you entered is incorrect");
@@ -408,7 +613,7 @@ public class GUIFrames extends javax.swing.JFrame {
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         // TODO add your handling code here:
-        showMainScreen();
+        showSearchScreen();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
@@ -424,7 +629,7 @@ public class GUIFrames extends javax.swing.JFrame {
         } else if (!password.equals(confPass)) {
             JOptionPane.showMessageDialog(this, "Passwords do not match");
         } else {
-            DataBase putData = new DataBase();
+            Database putData = new Database();
             try {
                 if (putData.addDonor(new Donor(name, email, password, bloodGroup, mobile))) {
                     JOptionPane.showMessageDialog(this, "Successfully Registered!");
@@ -438,7 +643,7 @@ public class GUIFrames extends javax.swing.JFrame {
 
     private void searchMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMenuItemActionPerformed
         // TODO add your handling code here:
-        showMainScreen();
+        showSearchScreen();
     }//GEN-LAST:event_searchMenuItemActionPerformed
 
     private void registerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerMenuItemActionPerformed
@@ -448,7 +653,86 @@ public class GUIFrames extends javax.swing.JFrame {
 
     private void profileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileMenuItemActionPerformed
         // TODO add your handling code here:
+        showProfileScreen(GlobalVariables.me);
     }//GEN-LAST:event_profileMenuItemActionPerformed
+
+    private void nameProfFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameProfFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameProfFieldActionPerformed
+
+    private void resetProfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetProfButtonActionPerformed
+        // TODO add your handling code here:
+        nameProfField.setText(GlobalVariables.me.name);
+        emailProfField.setText(GlobalVariables.me.email);
+        bloodGroupProfDropDown.setSelectedItem(GlobalVariables.me.bloodgroup);
+        mobileProfField.setText(GlobalVariables.me.mobile);
+    }//GEN-LAST:event_resetProfButtonActionPerformed
+
+    private void editProfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProfButtonActionPerformed
+        // TODO add your handling code here:
+        String name = nameProfField.getText().toString();
+        String email = emailProfField.getText().toString();
+        String bloodGroup = bloodGroupProfDropDown.getSelectedItem().toString();
+        String mobile = mobileProfField.getText().toString();
+        Donor d = new Donor(GlobalVariables.me.id,name,email,GlobalVariables.me.password,bloodGroup,mobile);
+        Database database = new Database();
+        try {
+                if(database.editDonor(d))
+                {
+                    JOptionPane.showMessageDialog(this,"Edit Successful");
+                    GlobalVariables.me=d;
+                    changePasswordDialog.setVisible(false);
+                }
+                else
+                    JOptionPane.showMessageDialog(this,"Some Error Occurred");
+                    
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        
+    }//GEN-LAST:event_editProfButtonActionPerformed
+
+    private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
+        // TODO add your handling code here:
+        changePasswordDialog.setLocation(this.getLocation());
+        changePasswordDialog.setVisible(true);
+    }//GEN-LAST:event_changePasswordButtonActionPerformed
+
+    private void submitChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitChangeButtonActionPerformed
+        // TODO add your handling code here:
+        String currentPassword = currentPasswordField.getText().toString();
+        String newPassword = newPasswordField.getText().toString();
+        String confNewPassword = confNewPasswordField.getText().toString();
+        if(currentPassword.equals("")||newPassword.equals("")||confNewPassword.equals(""))
+            JOptionPane.showMessageDialog(this,"All Fields are mandatory");
+        else if (!newPassword.equals(confNewPassword))
+            JOptionPane.showMessageDialog(this,"Passwords dont match");
+        else
+        {
+            Donor d = GlobalVariables.me;
+            d.password=newPassword;
+            Database database = new Database();
+            try {
+                if(database.editDonor(d))
+                {
+                    JOptionPane.showMessageDialog(this,"Password Changed Successfully");
+                    GlobalVariables.me.password=newPassword;
+                    changePasswordDialog.setVisible(false);
+                }
+                else
+                    JOptionPane.showMessageDialog(this,"Some Error Occurred");
+                    
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_submitChangeButtonActionPerformed
+
+    private void cancelChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelChangeButtonActionPerformed
+        // TODO add your handling code here:
+        changePasswordDialog.setVisible(false);
+    }//GEN-LAST:event_cancelChangeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -489,51 +773,74 @@ public class GUIFrames extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox bloodGroupComboBox;
     private javax.swing.JComboBox bloodGroupDropDown;
+    private javax.swing.JComboBox bloodGroupProfDropDown;
+    private javax.swing.JLabel bloodGroupProfLabel;
     private javax.swing.JLabel bloodgroupLabel;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JButton cancelChangeButton;
+    private javax.swing.JButton changePasswordButton;
+    private javax.swing.JDialog changePasswordDialog;
+    private javax.swing.JPasswordField confNewPasswordField;
+    private javax.swing.JLabel confNewPasswordLabel;
     private javax.swing.JPasswordField confPasswordField;
     private javax.swing.JLabel confPasswordLabel;
+    private javax.swing.JPasswordField currentPasswordField;
+    private javax.swing.JLabel currentPasswordLabel;
     private javax.swing.JTable donorListTable;
+    private javax.swing.JButton editProfButton;
     private javax.swing.JTextField emailField;
+    private javax.swing.JTextField emailProfField;
+    private javax.swing.JLabel emailProfLabel;
     private javax.swing.JTextField emailRegField;
     private javax.swing.JLabel emailRegLabel;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JButton loginButton;
     private javax.swing.JMenuItem loginMenuItem;
     private javax.swing.JPanel loginScreenPanel;
-    private javax.swing.JPanel mainScreenPanel;
     private javax.swing.JMenuBar menu;
     private javax.swing.JTextField mobileField;
     private javax.swing.JLabel mobileLabel;
+    private javax.swing.JTextField mobileProfField;
+    private javax.swing.JLabel mobileProfLabel;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JTextField nameProfField;
+    private javax.swing.JLabel nameProfLabel;
+    private javax.swing.JPasswordField newPasswordField;
+    private javax.swing.JLabel newPasswordLabel;
     private javax.swing.JMenu options;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JPasswordField passwordRegField;
     private javax.swing.JLabel passwordRegLabel;
     private javax.swing.JMenuItem profileMenuItem;
+    private javax.swing.JPanel profilePanel;
     private javax.swing.JMenuItem registerMenuItem;
     private javax.swing.JPanel registerPanel;
+    private javax.swing.JButton resetProfButton;
     private javax.swing.JScrollPane scrollTable;
     private javax.swing.JButton searchButton;
     private javax.swing.JMenuItem searchMenuItem;
+    private javax.swing.JPanel searchScreenPanel;
     private javax.swing.JButton signUpButton;
     private javax.swing.JButton submitButton;
+    private javax.swing.JButton submitChangeButton;
     // End of variables declaration//GEN-END:variables
 
     private void changeComponents() {
         donorListTable.setModel(tableModel);
-        showMainScreen();
+        showSearchScreen();
     }
 
-    private void showMainScreen() {
+    private void showSearchScreen() {
         hideAll();
-        mainScreenPanel.setVisible(true);
+        searchScreenPanel.setVisible(true);
         setTitle("Search Donors");
+        repaint();
     }
 
     private void showLoginScreen() {
         hideAll();
+        setTitle("Login");
         nameField.setText("");
         passwordRegField.setText("");
         confPasswordField.setText("");
@@ -541,19 +848,34 @@ public class GUIFrames extends javax.swing.JFrame {
         emailRegField.setText("");
         bloodGroupComboBox.setSelectedItem(0);
         loginScreenPanel.setVisible(true);
-        setTitle("Login");
+        repaint();
     }
 
     private void hideAll() {
         loginScreenPanel.setVisible(false);
-        mainScreenPanel.setVisible(false);
+        searchScreenPanel.setVisible(false);
         registerPanel.setVisible(false);
         profileMenuItem.setVisible(loggedIn);
+        profilePanel.setVisible(false);
         repaint();
     }
 
     private void showRegisterScreen() {
         hideAll();
+        setTitle("Register");
         registerPanel.setVisible(true);
+        repaint();
+
+    }
+
+    private void showProfileScreen(Donor d) {
+        hideAll();
+        setTitle("Profile");
+        profilePanel.setVisible(true);
+        nameProfField.setText(d.name);
+        emailProfField.setText(d.email);
+        bloodGroupProfDropDown.setSelectedItem(d.bloodgroup);
+        mobileProfField.setText(d.mobile);
+        repaint();
     }
 }
