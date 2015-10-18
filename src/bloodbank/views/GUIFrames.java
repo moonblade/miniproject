@@ -78,9 +78,15 @@ public class GUIFrames extends javax.swing.JFrame {
         submitChangeButton = new javax.swing.JButton();
         confNewPasswordField = new javax.swing.JPasswordField();
         cancelChangeButton = new javax.swing.JButton();
+        donateAcceptDialog = new javax.swing.JDialog();
+        dateDonLabel = new javax.swing.JLabel();
+        acceptDonButton = new javax.swing.JButton();
+        cancelDonButton = new javax.swing.JButton();
+        dateDonField = new javax.swing.JTextField();
+        rejectDonButton = new javax.swing.JButton();
         requestDonationDialog = new javax.swing.JDialog();
         nameReqLabel = new javax.swing.JLabel();
-        newPasswordLabel1 = new javax.swing.JLabel();
+        newPasswordReqLabel = new javax.swing.JLabel();
         requestReqButton = new javax.swing.JButton();
         cancelReqButton = new javax.swing.JButton();
         nameReqField = new javax.swing.JTextField();
@@ -210,9 +216,69 @@ public class GUIFrames extends javax.swing.JFrame {
         changePasswordDialog.pack();
         changePasswordDialog.setSize(400,400);
 
+        dateDonLabel.setText("Date");
+
+        acceptDonButton.setText("Accept");
+        acceptDonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptDonButtonActionPerformed(evt);
+            }
+        });
+
+        cancelDonButton.setText("Cancel");
+        cancelDonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelDonButtonActionPerformed(evt);
+            }
+        });
+
+        rejectDonButton.setText("Reject");
+        rejectDonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejectDonButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout donateAcceptDialogLayout = new javax.swing.GroupLayout(donateAcceptDialog.getContentPane());
+        donateAcceptDialog.getContentPane().setLayout(donateAcceptDialogLayout);
+        donateAcceptDialogLayout.setHorizontalGroup(
+            donateAcceptDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, donateAcceptDialogLayout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(donateAcceptDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, donateAcceptDialogLayout.createSequentialGroup()
+                        .addComponent(cancelDonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(rejectDonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(acceptDonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, donateAcceptDialogLayout.createSequentialGroup()
+                        .addComponent(dateDonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dateDonField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44))
+        );
+        donateAcceptDialogLayout.setVerticalGroup(
+            donateAcceptDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(donateAcceptDialogLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(donateAcceptDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dateDonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateDonField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(donateAcceptDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acceptDonButton)
+                    .addComponent(cancelDonButton)
+                    .addComponent(rejectDonButton))
+                .addContainerGap())
+        );
+
+        changePasswordDialog.pack();
+        changePasswordDialog.setSize(400,400);
+
         nameReqLabel.setText("Name");
 
-        newPasswordLabel1.setText("Mobile");
+        newPasswordReqLabel.setText("Mobile");
 
         requestReqButton.setText("Request");
         requestReqButton.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +308,7 @@ public class GUIFrames extends javax.swing.JFrame {
                     .addGroup(requestDonationDialogLayout.createSequentialGroup()
                         .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(nameReqLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(newPasswordLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
+                            .addComponent(newPasswordReqLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
                         .addGap(41, 41, 41)
                         .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(nameReqField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +324,7 @@ public class GUIFrames extends javax.swing.JFrame {
                     .addComponent(nameReqField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newPasswordLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newPasswordReqLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mobileReqField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -330,7 +396,7 @@ public class GUIFrames extends javax.swing.JFrame {
         getContentPane().add(searchScreenPanel, "card2");
         searchScreenPanel.getAccessibleContext().setAccessibleName("");
 
-        nameProfLabel.setText("Name");
+        nameProfLabel.setText("Date");
 
         nameProfField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -449,7 +515,7 @@ public class GUIFrames extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(profilePanelLayout.createSequentialGroup()
-                        .addComponent(changePasswordButton, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                        .addComponent(changePasswordButton, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(editProfButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(nameProfField, javax.swing.GroupLayout.Alignment.CENTER)
@@ -827,6 +893,8 @@ public class GUIFrames extends javax.swing.JFrame {
             // TODO add your handling code here:
             showProfileScreen(GlobalVariables.me);
             Database d = new Database();
+            requestTableModel.setRowCount(0);
+            historyTableModel.setRowCount(0);
             ArrayList<Donation> donationList = d.returnRequests(GlobalVariables.me.id);
             if (donationList != null) {
                 System.out.println(donationList.size() + "");
@@ -836,7 +904,7 @@ public class GUIFrames extends javax.swing.JFrame {
                         requestTableModel.addRow(obj);
                     } else if (donation.status == 1) {
                         Object obj[] = {donation.name, donation.dateString};
-                        requestTableModel.addRow(obj);
+                        historyTableModel.addRow(obj);
                     }
                 }
                 pendingRequestTable.setModel(requestTableModel);
@@ -928,25 +996,51 @@ public class GUIFrames extends javax.swing.JFrame {
         changePasswordDialog.setVisible(false);
     }//GEN-LAST:event_cancelChangeButtonActionPerformed
 
-    private void requestReqButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestReqButtonActionPerformed
+    private void acceptDonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptDonButtonActionPerformed
         // TODO add your handling code here:
-        String name = nameReqField.getText();
-        String mobile = mobileReqField.getText();
-        if (name.equals("") || mobile.equals("")) {
-            JOptionPane.showMessageDialog(this, "All Details are mandatory");
+        String date = dateDonField.getText();
+        if (date.equals("")) {
+            JOptionPane.showMessageDialog(this, "All fields are mandatory");
         } else {
-            Database database = new Database();
             try {
-                if (database.addRequest(name, mobile, GlobalVariables.defaultStatus, GlobalVariables.request)) {
-                    requestDonationDialog.setVisible(false);
-                    JOptionPane.showMessageDialog(this, "Requested");
+                Database d = new Database();
+                if (d.editRequest(GlobalVariables.me.id, GlobalVariables.nameAccept,date, 1)) {
+                    donateAcceptDialog.setVisible(false);
+                    JOptionPane.showMessageDialog(this, "Accepted Request");
                 } else {
-                    requestDonationDialog.setVisible(false);
+                    donateAcceptDialog.setVisible(false);
                     JOptionPane.showMessageDialog(this, "Some Error Occured");
                 }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }//GEN-LAST:event_acceptDonButtonActionPerformed
+
+    private void cancelDonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDonButtonActionPerformed
+        // TODO add your handling code here:
+        donateAcceptDialog.setVisible(false);
+    }//GEN-LAST:event_cancelDonButtonActionPerformed
+
+    private void requestReqButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestReqButtonActionPerformed
+        // TODO add your handling code here:
+        String name = nameReqField.getText();
+        String mobile = mobileReqField.getText();
+        Database d = new Database();
+        try {
+            if(d.addRequest(name, mobile, 0, GlobalVariables.request))
+            {
+                requestDonationDialog.setVisible(false);
+                JOptionPane.showMessageDialog(this,"Requested");
+            }
+            else
+            {
+                requestDonationDialog.setVisible(false);
+                JOptionPane.showMessageDialog(this,"Some error occured");
+                
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_requestReqButtonActionPerformed
 
@@ -954,6 +1048,22 @@ public class GUIFrames extends javax.swing.JFrame {
         // TODO add your handling code here:
         requestDonationDialog.setVisible(false);
     }//GEN-LAST:event_cancelReqButtonActionPerformed
+
+    private void rejectDonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectDonButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            Database d = new Database();
+            if (d.editRequest(GlobalVariables.me.id, GlobalVariables.nameAccept, "NA", -1)) {
+                donateAcceptDialog.setVisible(false);
+                JOptionPane.showMessageDialog(this, "Rejected Request");
+            } else {
+                donateAcceptDialog.setVisible(false);
+                JOptionPane.showMessageDialog(this, "Some Error Occured");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_rejectDonButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -992,6 +1102,7 @@ public class GUIFrames extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton acceptDonButton;
     private javax.swing.JComboBox bloodGroupComboBox;
     private javax.swing.JComboBox bloodGroupDropDown;
     private javax.swing.JComboBox bloodGroupProfDropDown;
@@ -999,6 +1110,7 @@ public class GUIFrames extends javax.swing.JFrame {
     private javax.swing.JLabel bloodgroupLabel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton cancelChangeButton;
+    private javax.swing.JButton cancelDonButton;
     private javax.swing.JButton cancelReqButton;
     private javax.swing.JButton changePasswordButton;
     private javax.swing.JDialog changePasswordDialog;
@@ -1008,6 +1120,9 @@ public class GUIFrames extends javax.swing.JFrame {
     private javax.swing.JLabel confPasswordLabel;
     private javax.swing.JPasswordField currentPasswordField;
     private javax.swing.JLabel currentPasswordLabel;
+    private javax.swing.JTextField dateDonField;
+    private javax.swing.JLabel dateDonLabel;
+    private javax.swing.JDialog donateAcceptDialog;
     private javax.swing.JTable donorListTable;
     private javax.swing.JButton editProfButton;
     private javax.swing.JTextField emailField;
@@ -1037,7 +1152,7 @@ public class GUIFrames extends javax.swing.JFrame {
     private javax.swing.JLabel nameReqLabel;
     private javax.swing.JPasswordField newPasswordField;
     private javax.swing.JLabel newPasswordLabel;
-    private javax.swing.JLabel newPasswordLabel1;
+    private javax.swing.JLabel newPasswordReqLabel;
     private javax.swing.JMenu options;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JPasswordField passwordRegField;
@@ -1050,6 +1165,7 @@ public class GUIFrames extends javax.swing.JFrame {
     private javax.swing.JPanel profilePanel;
     private javax.swing.JMenuItem registerMenuItem;
     private javax.swing.JPanel registerPanel;
+    private javax.swing.JButton rejectDonButton;
     private javax.swing.JDialog requestDonationDialog;
     private javax.swing.JButton requestReqButton;
     private javax.swing.JButton resetProfButton;
@@ -1065,10 +1181,14 @@ public class GUIFrames extends javax.swing.JFrame {
     private void changeComponents() {
         donorListTable.setModel(tableModel);
         showSearchScreen();
+        donateAcceptDialog.pack();
+        donateAcceptDialog.setSize(400, 400);
+
         requestDonationDialog.pack();
         requestDonationDialog.setSize(400, 400);
 
         donorListTable.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evnt) {
                 if (evnt.getClickCount() == 2) {
                     int id = Integer.parseInt(donorListTable.getValueAt(donorListTable.getSelectedRow(), donorListTable.getColumn(GlobalVariables.col[0].toString()).getModelIndex()).toString());
@@ -1078,6 +1198,7 @@ public class GUIFrames extends javax.swing.JFrame {
             }
         });
         pendingRequestTable.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evnt) {
                 if (evnt.getClickCount() == 2) {
                     String name = pendingRequestTable.getValueAt(pendingRequestTable.getSelectedRow(), pendingRequestTable.getColumn(GlobalVariables.requestCol[0].toString()).getModelIndex()).toString();
@@ -1089,7 +1210,10 @@ public class GUIFrames extends javax.swing.JFrame {
     }
 
     public void acceptDialog(int id, String name, String na) {
-        
+        donateAcceptDialog.setLocation(this.getLocation());
+        donateAcceptDialog.setVisible(true);
+        GlobalVariables.nameAccept = name;
+        GlobalVariables.dateString = na;
     }
 
     public void requestDonation(int id) {

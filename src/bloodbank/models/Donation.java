@@ -28,8 +28,8 @@ public class Donation {
         int i=1;
         this.name = r.getObject(i++).toString();
         this.mobile = r.getObject(i++).toString();
-        this.status = Integer.parseInt(r.getObject(i++).toString());
-        this.id=Integer.parseInt(r.getObject(i++).toString());
+        status = Integer.parseInt(r.getObject(i++).toString());
+        id=Integer.parseInt(r.getObject(i++).toString());
         dateString = r.getObject(i++).toString();
     }
     String toRow()

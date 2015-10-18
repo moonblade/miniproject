@@ -169,4 +169,22 @@ public class Database {
         }
 	return false;
     }
+
+    public boolean editRequest(int id, String nameAccept, String dateString, int i) throws ClassNotFoundException {
+        String sqlQuery = "update donation set status="+i + ", date='"+dateString+"' where id = " + id + " and rname='" + nameAccept + "' and date='NA'";
+        System.out.println(sqlQuery);
+        try {
+            Class.forName(GlobalVariables.registerDriver);
+            conn = DriverManager.getConnection(GlobalVariables.connection);
+            Statement statement = conn.createStatement();
+
+            int m = statement.executeUpdate(sqlQuery);
+            return m > 0;
+        } catch (SQLException e) {
+            System.out.println("SqlError while retrieving");
+        } catch (NullPointerException n) {
+            System.out.println("Null Pointer Error while retrieving");
+        }
+	return false;
+    }
 }

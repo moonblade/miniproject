@@ -24,4 +24,6 @@ public class GlobalVariables {
     public static Donor me = new Donor();
     public static int request=0;
     public static int defaultStatus=0;
+    public static String nameAccept;
+    public static String dateString;
 }
