@@ -9,6 +9,8 @@ import bloodbank.GlobalVariables;
 import bloodbank.funtions.Database;
 import bloodbank.models.Donor;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -199,6 +201,7 @@ public class GUIFrames extends javax.swing.JFrame {
         donorListTable.setAlignmentX(0.0F);
         donorListTable.setAlignmentY(0.0F);
         donorListTable.setAutoscrolls(false);
+        donorListTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         donorListTable.setFillsViewportHeight(true);
         scrollTable.setViewportView(donorListTable);
 
@@ -219,7 +222,7 @@ public class GUIFrames extends javax.swing.JFrame {
             searchScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchScreenPanelLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addComponent(scrollTable))
+                .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
             .addGroup(searchScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(searchScreenPanelLayout.createSequentialGroup()
                     .addContainerGap()
@@ -545,7 +548,7 @@ public class GUIFrames extends javax.swing.JFrame {
             tableModel.setRowCount(0);
             for (int i = 0; i < donorList.size(); ++i) {
                 Donor temp = donorList.get(i);
-                Object obj[] = {temp.name, temp.email, temp.bloodgroup, temp.mobile};
+                Object obj[] = {temp.id, temp.name, temp.email, temp.bloodgroup, temp.mobile};
                 donorList.get(i).print();
                 tableModel.addRow(obj);
             }
@@ -674,23 +677,22 @@ public class GUIFrames extends javax.swing.JFrame {
         String email = emailProfField.getText().toString();
         String bloodGroup = bloodGroupProfDropDown.getSelectedItem().toString();
         String mobile = mobileProfField.getText().toString();
-        Donor d = new Donor(GlobalVariables.me.id,name,email,GlobalVariables.me.password,bloodGroup,mobile);
+        Donor d = new Donor(GlobalVariables.me.id, name, email, GlobalVariables.me.password, bloodGroup, mobile);
         Database database = new Database();
         try {
-                if(database.editDonor(d))
-                {
-                    JOptionPane.showMessageDialog(this,"Edit Successful");
-                    GlobalVariables.me=d;
-                    changePasswordDialog.setVisible(false);
-                }
-                else
-                    JOptionPane.showMessageDialog(this,"Some Error Occurred");
-                    
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
+            if (database.editDonor(d)) {
+                JOptionPane.showMessageDialog(this, "Edit Successful");
+                GlobalVariables.me = d;
+                changePasswordDialog.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Some Error Occurred");
             }
-            
-        
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_editProfButtonActionPerformed
 
     private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
@@ -704,25 +706,23 @@ public class GUIFrames extends javax.swing.JFrame {
         String currentPassword = currentPasswordField.getText().toString();
         String newPassword = newPasswordField.getText().toString();
         String confNewPassword = confNewPasswordField.getText().toString();
-        if(currentPassword.equals("")||newPassword.equals("")||confNewPassword.equals(""))
-            JOptionPane.showMessageDialog(this,"All Fields are mandatory");
-        else if (!newPassword.equals(confNewPassword))
-            JOptionPane.showMessageDialog(this,"Passwords dont match");
-        else
-        {
+        if (currentPassword.equals("") || newPassword.equals("") || confNewPassword.equals("")) {
+            JOptionPane.showMessageDialog(this, "All Fields are mandatory");
+        } else if (!newPassword.equals(confNewPassword)) {
+            JOptionPane.showMessageDialog(this, "Passwords dont match");
+        } else {
             Donor d = GlobalVariables.me;
-            d.password=newPassword;
+            d.password = newPassword;
             Database database = new Database();
             try {
-                if(database.editDonor(d))
-                {
-                    JOptionPane.showMessageDialog(this,"Password Changed Successfully");
-                    GlobalVariables.me.password=newPassword;
+                if (database.editDonor(d)) {
+                    JOptionPane.showMessageDialog(this, "Password Changed Successfully");
+                    GlobalVariables.me.password = newPassword;
                     changePasswordDialog.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Some Error Occurred");
                 }
-                else
-                    JOptionPane.showMessageDialog(this,"Some Error Occurred");
-                    
+
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -829,6 +829,15 @@ public class GUIFrames extends javax.swing.JFrame {
     private void changeComponents() {
         donorListTable.setModel(tableModel);
         showSearchScreen();
+
+        donorListTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evnt) {
+                if (evnt.getClickCount() == 1) {
+                    System.out.println(donorListTable.getValueAt(donorListTable.getSelectedRow(), donorListTable.getColumn(GlobalVariables.col[0].toString()).getModelIndex()));
+                }
+            }
+        });
+
     }
 
     private void showSearchScreen() {
