@@ -6,6 +6,8 @@
 package bloodbank.models;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -14,24 +16,24 @@ import java.sql.Date;
 public class Donation {
 
     int id;
-    String receiverName;
-    String dateString;
-    Donation(int id, String receiverName, String dateString)
+    public String name,mobile,dateString;
+    public int status;
+    Donation(int id, String name, String dateString)
     {
         this.id=id;
-        this.receiverName = receiverName;
-        this.dateString=dateString;
+        this.name = name;
     }
-    Donation(String row)
+    public Donation(ResultSet r) throws SQLException
     {
-        String split[] = row.split("\\s+");
-        int i=0;
-        this.id=Integer.parseInt(split[i++]);
-        this.receiverName=split[i++];
-        this.dateString=split[i++];
+        int i=1;
+        this.name = r.getObject(i++).toString();
+        this.mobile = r.getObject(i++).toString();
+        this.status = Integer.parseInt(r.getObject(i++).toString());
+        this.id=Integer.parseInt(r.getObject(i++).toString());
+        dateString = r.getObject(i++).toString();
     }
     String toRow()
     {
-        return (this.id + " " + this.receiverName + " " + this.dateString);
+        return (this.id + " " + this.name + " " + this.dateString);
     }
 }

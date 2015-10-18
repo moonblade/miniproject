@@ -6,6 +6,7 @@
 package bloodbank.funtions;
 
 import bloodbank.GlobalVariables;
+import bloodbank.models.Donation;
 import bloodbank.models.Donor;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,6 +23,7 @@ import java.util.*;
 public class Database {
 
     ArrayList<Donor> donorList = new ArrayList<Donor>();
+    ArrayList<Donation> donationList = new ArrayList<Donation>();
     Connection conn = null;
 
     public boolean login(String username, String password) throws ClassNotFoundException {
@@ -118,6 +120,50 @@ public class Database {
             }
         } catch (SQLException e) {
             System.out.println("SqlError while retrieving");
+        } catch (NullPointerException n) {
+            System.out.println("Null Pointer Error while retrieving");
+        }
+	return false;
+    }
+    
+    public ArrayList<Donation> returnRequests(int id) throws ClassNotFoundException {
+        String sqlQuery = "select * from donation where id=" + id + ";";
+        System.out.println(sqlQuery);
+        try {
+            conn = DriverManager.getConnection(GlobalVariables.connection);
+            Statement statement = conn.createStatement();
+
+            ResultSet r = statement.executeQuery(sqlQuery);
+
+            try {
+                while (r.next()) {
+                    donationList.add(new Donation(r));
+                }
+            } catch (SQLException e) {
+                System.out.println("SqlError while adding");
+            } catch (NullPointerException n) {
+                System.out.println("Null Pointer Error while adding");
+            }
+            return donationList;
+        } catch (SQLException e) {
+            System.out.println("SqlError");
+        } catch (NullPointerException n) {
+            System.out.println("Null Pointer Error while retrieving");
+        }
+        return null;
+    }
+    
+    public boolean addRequest(String name, String mobile, int status, int request) throws ClassNotFoundException {
+        String sqlQuery = "insert into donation(rname, rmobile, status, id) values('" + name + "','" + mobile + "'," + status + "," + request + ")";
+        try {
+            Class.forName(GlobalVariables.registerDriver);
+            conn = DriverManager.getConnection(GlobalVariables.connection);
+            Statement statement = conn.createStatement();
+
+            int m = statement.executeUpdate(sqlQuery);
+            return m > 0;
+        } catch (SQLException e) {
+            System.out.println("SqlError");
         } catch (NullPointerException n) {
             System.out.println("Null Pointer Error while retrieving");
         }

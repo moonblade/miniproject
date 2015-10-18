@@ -7,6 +7,7 @@ package bloodbank.views;
 
 import bloodbank.GlobalVariables;
 import bloodbank.funtions.Database;
+import bloodbank.models.Donation;
 import bloodbank.models.Donor;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -24,7 +25,27 @@ import javax.swing.table.DefaultTableModel;
 public class GUIFrames extends javax.swing.JFrame {
 
     boolean loggedIn = false;
-    DefaultTableModel tableModel = new DefaultTableModel(GlobalVariables.col, 0);
+    DefaultTableModel tableModel = new DefaultTableModel(GlobalVariables.col, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            //all cells false
+            return false;
+        }
+    };
+    DefaultTableModel requestTableModel = new DefaultTableModel(GlobalVariables.requestCol, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            //all cells false
+            return false;
+        }
+    };
+    DefaultTableModel historyTableModel = new DefaultTableModel(GlobalVariables.historyCol, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            //all cells false
+            return false;
+        }
+    };
 
     /**
      * Creates new form MainScreen
@@ -57,6 +78,13 @@ public class GUIFrames extends javax.swing.JFrame {
         submitChangeButton = new javax.swing.JButton();
         confNewPasswordField = new javax.swing.JPasswordField();
         cancelChangeButton = new javax.swing.JButton();
+        requestDonationDialog = new javax.swing.JDialog();
+        nameReqLabel = new javax.swing.JLabel();
+        newPasswordLabel1 = new javax.swing.JLabel();
+        requestReqButton = new javax.swing.JButton();
+        cancelReqButton = new javax.swing.JButton();
+        nameReqField = new javax.swing.JTextField();
+        mobileReqField = new javax.swing.JTextField();
         searchScreenPanel = new javax.swing.JPanel();
         bloodGroupDropDown = new javax.swing.JComboBox();
         searchButton = new javax.swing.JButton();
@@ -74,6 +102,14 @@ public class GUIFrames extends javax.swing.JFrame {
         resetProfButton = new javax.swing.JButton();
         editProfButton = new javax.swing.JButton();
         changePasswordButton = new javax.swing.JButton();
+        pendingRequest = new javax.swing.JPanel();
+        pendingRequestTableScroll = new javax.swing.JScrollPane();
+        pendingRequestTable = new javax.swing.JTable();
+        pendingRequestLabel = new javax.swing.JLabel();
+        historyRequest = new javax.swing.JPanel();
+        historyRequestLabel = new javax.swing.JLabel();
+        historyRequestTableScroll = new javax.swing.JScrollPane();
+        historyRequestTable = new javax.swing.JTable();
         registerPanel = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
@@ -171,9 +207,68 @@ public class GUIFrames extends javax.swing.JFrame {
                 .addGap(38, 38, 38))
         );
 
+        changePasswordDialog.pack();
+        changePasswordDialog.setSize(400,400);
+
+        nameReqLabel.setText("Name");
+
+        newPasswordLabel1.setText("Mobile");
+
+        requestReqButton.setText("Request");
+        requestReqButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestReqButtonActionPerformed(evt);
+            }
+        });
+
+        cancelReqButton.setText("Cancel");
+        cancelReqButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelReqButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout requestDonationDialogLayout = new javax.swing.GroupLayout(requestDonationDialog.getContentPane());
+        requestDonationDialog.getContentPane().setLayout(requestDonationDialogLayout);
+        requestDonationDialogLayout.setHorizontalGroup(
+            requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, requestDonationDialogLayout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(requestDonationDialogLayout.createSequentialGroup()
+                        .addComponent(cancelReqButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addComponent(requestReqButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(requestDonationDialogLayout.createSequentialGroup()
+                        .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(nameReqLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(newPasswordLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
+                        .addGap(41, 41, 41)
+                        .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nameReqField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mobileReqField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(33, 33, 33))
+        );
+        requestDonationDialogLayout.setVerticalGroup(
+            requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(requestDonationDialogLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameReqLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameReqField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newPasswordLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mobileReqField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(requestDonationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(requestReqButton)
+                    .addComponent(cancelReqButton))
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(new java.awt.CardLayout());
 
         searchScreenPanel.setAlignmentX(0.0F);
         searchScreenPanel.setAlignmentY(0.0F);
@@ -209,7 +304,7 @@ public class GUIFrames extends javax.swing.JFrame {
         searchScreenPanel.setLayout(searchScreenPanelLayout);
         searchScreenPanelLayout.setHorizontalGroup(
             searchScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(scrollTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
             .addGroup(searchScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchScreenPanelLayout.createSequentialGroup()
                     .addGap(103, 103, 103)
@@ -232,7 +327,7 @@ public class GUIFrames extends javax.swing.JFrame {
                     .addGap(505, 505, 505)))
         );
 
-        getContentPane().add(searchScreenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, -1, -1));
+        getContentPane().add(searchScreenPanel, "card2");
         searchScreenPanel.getAccessibleContext().setAccessibleName("");
 
         nameProfLabel.setText("Name");
@@ -273,6 +368,72 @@ public class GUIFrames extends javax.swing.JFrame {
             }
         });
 
+        pendingRequestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        pendingRequestTableScroll.setViewportView(pendingRequestTable);
+
+        pendingRequestLabel.setText("Pending Requests");
+
+        javax.swing.GroupLayout pendingRequestLayout = new javax.swing.GroupLayout(pendingRequest);
+        pendingRequest.setLayout(pendingRequestLayout);
+        pendingRequestLayout.setHorizontalGroup(
+            pendingRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pendingRequestLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(pendingRequestLabel)
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addComponent(pendingRequestTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        pendingRequestLayout.setVerticalGroup(
+            pendingRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pendingRequestLayout.createSequentialGroup()
+                .addComponent(pendingRequestLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pendingRequestTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+        );
+
+        historyRequestLabel.setText("History");
+
+        historyRequestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        historyRequestTableScroll.setViewportView(historyRequestTable);
+
+        javax.swing.GroupLayout historyRequestLayout = new javax.swing.GroupLayout(historyRequest);
+        historyRequest.setLayout(historyRequestLayout);
+        historyRequestLayout.setHorizontalGroup(
+            historyRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(historyRequestTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historyRequestLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(historyRequestLabel)
+                .addGap(72, 72, 72))
+        );
+        historyRequestLayout.setVerticalGroup(
+            historyRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historyRequestLayout.createSequentialGroup()
+                .addComponent(historyRequestLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(historyRequestTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout profilePanelLayout = new javax.swing.GroupLayout(profilePanel);
         profilePanel.setLayout(profilePanelLayout);
         profilePanelLayout.setHorizontalGroup(
@@ -288,14 +449,18 @@ public class GUIFrames extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(profilePanelLayout.createSequentialGroup()
-                        .addComponent(changePasswordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(changePasswordButton, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(editProfButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(nameProfField, javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(emailProfField, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(bloodGroupProfDropDown, javax.swing.GroupLayout.Alignment.TRAILING, 0, 241, Short.MAX_VALUE)
+                    .addComponent(bloodGroupProfDropDown, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(mobileProfField, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(29, 29, 29))
+            .addGroup(profilePanelLayout.createSequentialGroup()
+                .addComponent(pendingRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(historyRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         profilePanelLayout.setVerticalGroup(
             profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,10 +487,13 @@ public class GUIFrames extends javax.swing.JFrame {
                     .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(resetProfButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(changePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(280, 280, 280))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pendingRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(historyRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(profilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 550));
+        getContentPane().add(profilePanel, "card3");
 
         nameLabel.setText("Name");
 
@@ -425,7 +593,7 @@ public class GUIFrames extends javax.swing.JFrame {
                 .addGap(193, 193, 193))
         );
 
-        getContentPane().add(registerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 550));
+        getContentPane().add(registerPanel, "card4");
 
         emailField.setToolTipText("Email");
 
@@ -471,10 +639,10 @@ public class GUIFrames extends javax.swing.JFrame {
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(signUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addContainerGap(273, Short.MAX_VALUE))
         );
 
-        getContentPane().add(loginScreenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 550));
+        getContentPane().add(loginScreenPanel, "card5");
 
         options.setText("Options");
 
@@ -621,12 +789,12 @@ public class GUIFrames extends javax.swing.JFrame {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
-        String name = nameField.getText().toString();
-        String email = emailRegField.getText().toString();
+        String name = nameField.getText();
+        String email = emailRegField.getText();
         String bloodGroup = bloodGroupComboBox.getSelectedItem().toString();
-        String password = passwordRegField.getText().toString();
-        String confPass = confPasswordField.getText().toString();
-        String mobile = mobileField.getText().toString();
+        String password = passwordRegField.getText();
+        String confPass = confPasswordField.getText();
+        String mobile = mobileField.getText();
         if (name.equals("") || email.equals("") || password.equals("") || confPass.equals("") || mobile.equals("") || bloodGroup.equals("Select")) {
             JOptionPane.showMessageDialog(this, "All details are mandatory");
         } else if (!password.equals(confPass)) {
@@ -655,8 +823,34 @@ public class GUIFrames extends javax.swing.JFrame {
     }//GEN-LAST:event_registerMenuItemActionPerformed
 
     private void profileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileMenuItemActionPerformed
-        // TODO add your handling code here:
-        showProfileScreen(GlobalVariables.me);
+        try {
+            // TODO add your handling code here:
+            showProfileScreen(GlobalVariables.me);
+            Database d = new Database();
+            ArrayList<Donation> donationList = d.returnRequests(GlobalVariables.me.id);
+            if (donationList != null) {
+                System.out.println(donationList.size() + "");
+                for (Donation donation : donationList) {
+                    if (donation.status == 0) {
+                        Object obj[] = {donation.name, donation.mobile};
+                        requestTableModel.addRow(obj);
+                    } else if (donation.status == 1) {
+                        Object obj[] = {donation.name, donation.dateString};
+                        requestTableModel.addRow(obj);
+                    }
+                }
+                pendingRequestTable.setModel(requestTableModel);
+                historyRequestTable.setModel(historyTableModel);
+            } else {
+                pendingRequestTableScroll.setVisible(false);
+                pendingRequestLabel.setVisible(false);
+                historyRequestTableScroll.setVisible(false);
+                historyRequestLabel.setVisible(false);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_profileMenuItemActionPerformed
 
     private void nameProfFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameProfFieldActionPerformed
@@ -734,6 +928,33 @@ public class GUIFrames extends javax.swing.JFrame {
         changePasswordDialog.setVisible(false);
     }//GEN-LAST:event_cancelChangeButtonActionPerformed
 
+    private void requestReqButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestReqButtonActionPerformed
+        // TODO add your handling code here:
+        String name = nameReqField.getText();
+        String mobile = mobileReqField.getText();
+        if (name.equals("") || mobile.equals("")) {
+            JOptionPane.showMessageDialog(this, "All Details are mandatory");
+        } else {
+            Database database = new Database();
+            try {
+                if (database.addRequest(name, mobile, GlobalVariables.defaultStatus, GlobalVariables.request)) {
+                    requestDonationDialog.setVisible(false);
+                    JOptionPane.showMessageDialog(this, "Requested");
+                } else {
+                    requestDonationDialog.setVisible(false);
+                    JOptionPane.showMessageDialog(this, "Some Error Occured");
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_requestReqButtonActionPerformed
+
+    private void cancelReqButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelReqButtonActionPerformed
+        // TODO add your handling code here:
+        requestDonationDialog.setVisible(false);
+    }//GEN-LAST:event_cancelReqButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -778,6 +999,7 @@ public class GUIFrames extends javax.swing.JFrame {
     private javax.swing.JLabel bloodgroupLabel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton cancelChangeButton;
+    private javax.swing.JButton cancelReqButton;
     private javax.swing.JButton changePasswordButton;
     private javax.swing.JDialog changePasswordDialog;
     private javax.swing.JPasswordField confNewPasswordField;
@@ -794,6 +1016,10 @@ public class GUIFrames extends javax.swing.JFrame {
     private javax.swing.JTextField emailRegField;
     private javax.swing.JLabel emailRegLabel;
     private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JPanel historyRequest;
+    private javax.swing.JLabel historyRequestLabel;
+    private javax.swing.JTable historyRequestTable;
+    private javax.swing.JScrollPane historyRequestTableScroll;
     private javax.swing.JButton loginButton;
     private javax.swing.JMenuItem loginMenuItem;
     private javax.swing.JPanel loginScreenPanel;
@@ -802,20 +1028,30 @@ public class GUIFrames extends javax.swing.JFrame {
     private javax.swing.JLabel mobileLabel;
     private javax.swing.JTextField mobileProfField;
     private javax.swing.JLabel mobileProfLabel;
+    private javax.swing.JTextField mobileReqField;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameProfField;
     private javax.swing.JLabel nameProfLabel;
+    private javax.swing.JTextField nameReqField;
+    private javax.swing.JLabel nameReqLabel;
     private javax.swing.JPasswordField newPasswordField;
     private javax.swing.JLabel newPasswordLabel;
+    private javax.swing.JLabel newPasswordLabel1;
     private javax.swing.JMenu options;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JPasswordField passwordRegField;
     private javax.swing.JLabel passwordRegLabel;
+    private javax.swing.JPanel pendingRequest;
+    private javax.swing.JLabel pendingRequestLabel;
+    private javax.swing.JTable pendingRequestTable;
+    private javax.swing.JScrollPane pendingRequestTableScroll;
     private javax.swing.JMenuItem profileMenuItem;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JMenuItem registerMenuItem;
     private javax.swing.JPanel registerPanel;
+    private javax.swing.JDialog requestDonationDialog;
+    private javax.swing.JButton requestReqButton;
     private javax.swing.JButton resetProfButton;
     private javax.swing.JScrollPane scrollTable;
     private javax.swing.JButton searchButton;
@@ -829,15 +1065,37 @@ public class GUIFrames extends javax.swing.JFrame {
     private void changeComponents() {
         donorListTable.setModel(tableModel);
         showSearchScreen();
+        requestDonationDialog.pack();
+        requestDonationDialog.setSize(400, 400);
 
         donorListTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evnt) {
-                if (evnt.getClickCount() == 1) {
-                    System.out.println(donorListTable.getValueAt(donorListTable.getSelectedRow(), donorListTable.getColumn(GlobalVariables.col[0].toString()).getModelIndex()));
+                if (evnt.getClickCount() == 2) {
+                    int id = Integer.parseInt(donorListTable.getValueAt(donorListTable.getSelectedRow(), donorListTable.getColumn(GlobalVariables.col[0].toString()).getModelIndex()).toString());
+                    System.out.println(id + "");
+                    requestDonation(id);
                 }
             }
         });
+        pendingRequestTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evnt) {
+                if (evnt.getClickCount() == 2) {
+                    String name = pendingRequestTable.getValueAt(pendingRequestTable.getSelectedRow(), pendingRequestTable.getColumn(GlobalVariables.requestCol[0].toString()).getModelIndex()).toString();
+                    acceptDialog(GlobalVariables.me.id, name, "NA");
+                }
+            }
 
+        });
+    }
+
+    public void acceptDialog(int id, String name, String na) {
+        
+    }
+
+    public void requestDonation(int id) {
+        requestDonationDialog.setLocation(this.getLocation());
+        requestDonationDialog.setVisible(true);
+        GlobalVariables.request = id;
     }
 
     private void showSearchScreen() {
