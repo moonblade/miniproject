@@ -889,35 +889,7 @@ public class GUIFrames extends javax.swing.JFrame {
     }//GEN-LAST:event_registerMenuItemActionPerformed
 
     private void profileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileMenuItemActionPerformed
-        try {
-            // TODO add your handling code here:
-            showProfileScreen(GlobalVariables.me);
-            Database d = new Database();
-            requestTableModel.setRowCount(0);
-            historyTableModel.setRowCount(0);
-            ArrayList<Donation> donationList = d.returnRequests(GlobalVariables.me.id);
-            if (donationList != null) {
-                System.out.println(donationList.size() + "");
-                for (Donation donation : donationList) {
-                    if (donation.status == 0) {
-                        Object obj[] = {donation.name, donation.mobile};
-                        requestTableModel.addRow(obj);
-                    } else if (donation.status == 1) {
-                        Object obj[] = {donation.name, donation.dateString};
-                        historyTableModel.addRow(obj);
-                    }
-                }
-                pendingRequestTable.setModel(requestTableModel);
-                historyRequestTable.setModel(historyTableModel);
-            } else {
-                pendingRequestTableScroll.setVisible(false);
-                pendingRequestLabel.setVisible(false);
-                historyRequestTableScroll.setVisible(false);
-                historyRequestLabel.setVisible(false);
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        refreshProfile();
 
     }//GEN-LAST:event_profileMenuItemActionPerformed
 
@@ -1015,6 +987,7 @@ public class GUIFrames extends javax.swing.JFrame {
                 Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        refreshProfile();
     }//GEN-LAST:event_acceptDonButtonActionPerformed
 
     private void cancelDonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDonButtonActionPerformed
@@ -1063,6 +1036,7 @@ public class GUIFrames extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
         }
+        refreshProfile();
     }//GEN-LAST:event_rejectDonButtonActionPerformed
 
     /**
@@ -1268,5 +1242,37 @@ public class GUIFrames extends javax.swing.JFrame {
         bloodGroupProfDropDown.setSelectedItem(d.bloodgroup);
         mobileProfField.setText(d.mobile);
         repaint();
+    }
+
+    private void refreshProfile() {
+        try {
+            // TODO add your handling code here:
+            showProfileScreen(GlobalVariables.me);
+            Database d = new Database();
+            requestTableModel.setRowCount(0);
+            historyTableModel.setRowCount(0);
+            ArrayList<Donation> donationList = d.returnRequests(GlobalVariables.me.id);
+            if (donationList != null) {
+                System.out.println(donationList.size() + "");
+                for (Donation donation : donationList) {
+                    if (donation.status == 0) {
+                        Object obj[] = {donation.name, donation.mobile};
+                        requestTableModel.addRow(obj);
+                    } else if (donation.status == 1) {
+                        Object obj[] = {donation.name, donation.dateString};
+                        historyTableModel.addRow(obj);
+                    }
+                }
+                pendingRequestTable.setModel(requestTableModel);
+                historyRequestTable.setModel(historyTableModel);
+            } else {
+                pendingRequestTableScroll.setVisible(false);
+                pendingRequestLabel.setVisible(false);
+                historyRequestTableScroll.setVisible(false);
+                historyRequestLabel.setVisible(false);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIFrames.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

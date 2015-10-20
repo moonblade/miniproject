@@ -31,9 +31,6 @@ public class Database {
         try {
             Class.forName(GlobalVariables.registerDriver);
             conn = DriverManager.getConnection(GlobalVariables.connection);
-            if (GlobalVariables.MODE == 1) {
-                conn.setCatalog("test");
-            }
             Statement statement = conn.createStatement();
 
             ResultSet r = statement.executeQuery(loginQuery);
